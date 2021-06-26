@@ -100,9 +100,9 @@ public class MyLinkedHeapTree<E> extends LinkedBinaryTree<E>
 		remove(last);
 		return last.element();
 	}
-	
-	/*
-	 * Feel free to add helper methods here.
+
+	/**
+	 * Returns the last position contained in the Deque
 	 */
 	public Position<E> returnLast(){
 		return _positionNodeDeque.getLast();

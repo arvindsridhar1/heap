@@ -126,6 +126,9 @@ public class MyHeapTest {
 	 * your helper methods (if applicable).
 	 */
 
+	/**
+	 * Tests for the sizing of the heap when entries are added and removed
+	 */
 	@Test
 	public void sizeTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -136,6 +139,9 @@ public class MyHeapTest {
 		assertThat(heap.size(), is(0));
 	}
 
+	/**
+	 * Tests that the heap is properly recognized as empty/not empty
+	 */
 	@Test
 	public void isEmptyTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -146,12 +152,18 @@ public class MyHeapTest {
 		assertTrue(heap.isEmpty());
 	}
 
+	/**
+	 * Tests that an Empty Priority Queue exception is properly raised in an invalid min call
+	 */
 	@Test(expected = EmptyPriorityQueueException.class)
 	public void minExceptionTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
 		heap.min();
 	}
 
+	/**
+	 * Tests that the minimum of the heap is properly recognized
+	 */
 	@Test
 	public void minStandardTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -160,14 +172,22 @@ public class MyHeapTest {
 		Entry<Integer, String> entry3 = heap.insert(20, "ABC");
 
 		assertTrue(heap.min() == entry);
+		heap.replaceKey(entry, 99);
+		assertTrue(heap.min().getKey() == 10);
 	}
 
+	/**
+	 * Test that an Invalid Key Exception is properly raised in an invalid insert call
+	 */
 	@Test(expected = InvalidKeyException.class)
 	public void insertExceptionTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
 		heap.insert(null, "abc");
 	}
 
+	/**
+	 * Tests that the insert function works as intended
+	 */
 	@Test
 	public void insertStandardTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -183,12 +203,18 @@ public class MyHeapTest {
 		assertTrue(entry4.getValue() == "JKL");
 	}
 
+	/**
+	 * Tests that an Empty Priority Queue Execption is raised when the heap is empty on a removeMin call
+	 */
 	@Test(expected = EmptyPriorityQueueException.class)
 	public void removeMinExceptionTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
 		heap.removeMin();
 	}
 
+	/**
+	 * Tests that the removeMin methods works are intended
+	 */
 	@Test
 	public void removeMinStandardTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -204,6 +230,9 @@ public class MyHeapTest {
 		assertTrue(heap.removeMin() == entry);
 	}
 
+	/**
+	 * Tests that an Invalid Entry Exception is raised when trying to removed from an entry not in the tree
+	 */
 	@Test(expected = InvalidEntryException.class)
 	public void removeExceptionTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -211,6 +240,9 @@ public class MyHeapTest {
 		heap.remove(entry);
 	}
 
+	/**
+	 * Tests that the tree holds when removing entries, along with testing swapping and heaping up/down
+	 */
 	@Test
 	public void removeStandardTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -230,7 +262,9 @@ public class MyHeapTest {
 		assertTrue(heap.remove(entry4).getValue() == "STU");
 	}
 
-
+	/**
+	 * Tests that an Invalid Entry Exception is properly raised in an invalid replace key call
+	 */
 	@Test(expected= InvalidEntryException.class)
 	public void replaceKeyInvalidEntryTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -238,6 +272,9 @@ public class MyHeapTest {
 		heap.replaceKey(entry, 4);
 	}
 
+	/**
+	 * Tests that an Invalid Key Exception is properly raised in an invalid replace key call
+	 */
 	@Test(expected= InvalidKeyException.class)
 	public void replaceKeyInvalidKeyTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -245,7 +282,9 @@ public class MyHeapTest {
 		heap.replaceKey(entry, 4);
 	}
 
-
+	/**
+	 * Tests that the tree holds its properties when replacing keys (also tests up/downheaping)
+	 */
 	@Test
 	public void replaceKeyStandardTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -273,6 +312,9 @@ public class MyHeapTest {
 		assertTrue(entry.getKey() == -50);
 	}
 
+	/**
+	 * Tests that an Invalid Entry Exception is properly raised in an invalid replace value call
+	 */
 	@Test(expected = InvalidEntryException.class)
 	public void replaceValueExceptionTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -280,6 +322,9 @@ public class MyHeapTest {
 		heap.replaceValue(entry, "DEF");
 	}
 
+	/**
+	 * Tests that replacing the value of entries works properly and doesn't affect tree properties
+	 */
 	@Test
 	public void replaceValueStandardTest(){
 		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
@@ -296,7 +341,6 @@ public class MyHeapTest {
 		heap.replaceValue(entry, "");
 		assertTrue(entry.getValue() == "");
 	}
-
 
 }
 

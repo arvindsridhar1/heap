@@ -242,6 +242,9 @@ public class MyHeap<K,V> implements HeapWrapper<K,V>, AdaptablePriorityQueue<K,V
 	 * each occurrence "up-to-date."
 	 */
 
+	/**
+	 * Handles the recognition and calls the upward swapping of entry details when a key is smaller than its parents
+	 */
 	public void upHeap(Position<MyHeapEntry<K,V>> pos){
 		Position<MyHeapEntry<K,V>> position = pos;
 		while(!_tree.isRoot(position) && _comparator.compare(position.element().getKey(),
@@ -251,7 +254,9 @@ public class MyHeap<K,V> implements HeapWrapper<K,V>, AdaptablePriorityQueue<K,V
 		}
 	}
 
-
+	/**
+	 * Handles the recognition and calls the downward swapping of entry details when a key is larger than its children
+	 */
 	public void downHeap(Position<MyHeapEntry<K,V>> pos){
 		Position<MyHeapEntry<K,V>> position = pos;
 			while (_tree.hasLeft(position)) {
@@ -271,6 +276,9 @@ public class MyHeap<K,V> implements HeapWrapper<K,V>, AdaptablePriorityQueue<K,V
 		}
 	}
 
+	/**
+	 * Handles the actual mechanics of swapping entry details by switching keys and values of the entries
+	 */
 	public void swapElement(MyHeapEntry<K,V> elementOne, MyHeapEntry<K,V> elementTwo){
 		K oneKey = elementOne.getKey();
 		V oneValue = elementOne.getValue();
