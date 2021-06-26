@@ -1,6 +1,7 @@
 package heap;
 
 import net.datastructures.Entry;
+import net.datastructures.Position;
 
 /**
  * Represents a key/value pair to be stored in a data 
@@ -16,27 +17,56 @@ import net.datastructures.Entry;
 
 public class MyHeapEntry<K,V> implements Entry<K,V> {
 
+	private K _key;
+	private V _value;
+	private Position<MyHeapEntry<K,V>> _position;
 	/** 
 	 * Default constructor. You may wish to modify the parameters.
 	 */
-	public MyHeapEntry() {
-
+	public MyHeapEntry(K key, V value) {
+		_key = key;
+		_value = value;
 	}
-	
+
 	/**
 	 * @return the key stored in this entry 
 	 */
 	public K getKey() {
-		return null;
+		return _key;
 	}
 
-	/** 
-	 * @return the value stored in this entry 
+	/**
+	 * @return the value stored in this entry
 	 */
 	public V getValue() {
-		return null;
+		return _value;
 	}
-	
-	/* Add any additional methods here */
 
+	/**
+	 * set the key stored in this entry
+	 */
+	public void setKey(K key) {
+		_key = key;
+	}
+
+	/**
+	 * set the value stored in this entry
+	 */
+	public void setValue(V value) {
+		_value = value;
+	}
+
+	/**
+	 * set the position of the entry
+	 */
+	public void setPosition(Position<MyHeapEntry<K,V>> position) {
+		_position = position;
+	}
+
+	/**
+	 * @return the position that the entry is contained in
+	 */
+	public Position<MyHeapEntry<K, V>> getPosition() {
+		return _position;
+	}
 }

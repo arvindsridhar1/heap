@@ -3,10 +3,10 @@ package heap;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
+import net.datastructures.Position;
 import org.junit.Test;
 
 import net.datastructures.EmptyTreeException;
-
 
 /**
  * This class should be used to test the functionality of your MyLinkedHeapTree implementation.
@@ -59,4 +59,80 @@ public class MyLinkedHeapTreeTest {
 	 * TODO: Write your own tests below!
 	 * Think of edge cases for add/remove and try to test your helper methods (if applicable).
 	 */
+
+	/**
+	 * Checks that when adding elements to the tree, size is properly calculated
+	 */
+	@Test
+	public void testSize() {
+		MyLinkedHeapTree<Integer> tree = new MyLinkedHeapTree<Integer>();
+		tree.add(1);
+		tree.add(2);
+		tree.add(3);
+
+		assertTrue(tree.size() == 3);
+	}
+
+
+	/**
+	 * Checks the removed entry from a tree, and checks the size after having removed an entry
+	 */
+	@Test
+	public void sizeAfterRemove() {
+		MyLinkedHeapTree tree = new MyLinkedHeapTree();
+		tree.add(12);
+		tree.add(18);
+		tree.add(20);
+
+		assertEquals(20, tree.remove());
+		assertTrue(tree.size() == 2);
+	}
+
+	/**
+	 * Tests that the getKey and getValue methods work as intended
+	 */
+	@Test
+	public void testGetters() {
+		MyHeapEntry tree = new MyHeapEntry(25, "abc");
+
+		assertTrue(tree.getKey().equals(25));
+		assertTrue(tree.getValue().equals("abc"));
+	}
+
+	/**
+	 * Tests that the setKey and setValue methods work as intended
+	 */
+	@Test
+	public void testSetters() {
+		MyHeapEntry entry = new MyHeapEntry(25, "abc");
+		MyHeapEntry entry2 = new MyHeapEntry(26, 4);
+
+		entry.setKey(12);
+		entry2.setKey(35);
+		assertTrue(entry.getKey().equals(12));
+		assertTrue(entry2.getKey().equals(35));
+
+		entry.setValue("def");
+		entry2.setValue(6);
+		assertTrue(entry.getValue().equals("def"));
+		assertTrue(entry2.getValue().equals(6));
+	}
+
+	/**
+	 * Checks that the relationship between a position and an element in a tree holds properly
+	 */
+	@Test
+	public void positionTest() {
+		MyLinkedHeapTree tree = new MyLinkedHeapTree();
+
+		MyHeapEntry entry = new MyHeapEntry(25, "abc");
+		MyHeapEntry secondEntry = new MyHeapEntry(26, "def");
+
+		Position firstPosition = tree.add(entry);
+		Position secondPosition = tree.add(secondEntry);
+
+		assertTrue(firstPosition.element() == entry);
+		assertTrue(secondPosition.element() == secondEntry);
+	}
+
 }

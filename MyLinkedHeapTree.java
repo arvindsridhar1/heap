@@ -1,9 +1,7 @@
 package heap;
 
-import net.datastructures.CompleteBinaryTree;
-import net.datastructures.EmptyTreeException;
-import net.datastructures.LinkedBinaryTree;
-import net.datastructures.Position;
+import com.sun.xml.internal.bind.v2.model.core.Element;
+import net.datastructures.*;
 
 /**
  * An implementation of a complete binary tree by means 
@@ -22,12 +20,14 @@ import net.datastructures.Position;
 
 public class MyLinkedHeapTree<E> extends LinkedBinaryTree<E> 
 		implements CompleteBinaryTree<E> {
+
+	 private NodeDeque<Position<E>> _positionNodeDeque;
 	
 	/**
 	 * Default constructor. The tree begins empty.
 	 */
 	public MyLinkedHeapTree() {
-		
+		_positionNodeDeque = new NodeDeque<Position<E>>();
 	}
 
 	/**
@@ -45,7 +45,23 @@ public class MyLinkedHeapTree<E> extends LinkedBinaryTree<E>
 	 */
 	@Override
 	public Position<E> add(E element) {
-		return null;
+		if (isEmpty()) {
+			Position<E> root = this.addRoot(element);
+
+			_positionNodeDeque.addLast(root);
+			return _positionNodeDeque.getLast();
+		}
+		Position<E> parent = _positionNodeDeque.getFirst();
+		if(hasLeft(_positionNodeDeque.getFirst()) == false){
+			_positionNodeDeque.addLast(this.insertLeft(parent, element));
+
+		}
+		else if(hasLeft(_positionNodeDeque.getFirst()) == true){
+			_positionNodeDeque.addLast(this.insertRight(parent,element));
+			_positionNodeDeque.removeFirst();
+		}
+
+		return _positionNodeDeque.getLast();
 	}
 
 	/**
@@ -58,11 +74,38 @@ public class MyLinkedHeapTree<E> extends LinkedBinaryTree<E>
 	 */
 	@Override
 	public E remove() throws EmptyTreeException {
-		return null;
+		if (isEmpty()) {
+			throw new EmptyTreeException("Cannot remove from an empty tree");
+		}
+		Position<E> last = _positionNodeDeque.getLast();
+
+		if(isRoot(last)){
+			_positionNodeDeque.removeLast();
+			return remove(last);
+		}
+		Position<E> parent = parent(last);
+
+		if(hasLeft(parent)){
+			if(left(parent) == last) {
+				_positionNodeDeque.removeLast();
+			}
+		}
+
+		if(hasRight(parent)){
+			if(right(parent) == last) {
+				_positionNodeDeque.removeLast();
+				_positionNodeDeque.addFirst(parent(last));
+			}
+		}
+		remove(last);
+		return last.element();
 	}
 	
 	/*
 	 * Feel free to add helper methods here.
-	 */ 
-	
+	 */
+	public Position<E> returnLast(){
+		return _positionNodeDeque.getLast();
+	}
+
 }
