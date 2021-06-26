@@ -177,6 +177,20 @@ public class MyHeapTest {
 	}
 
 	/**
+	 * Tests for the edge case that all the keys are the same
+	 */
+	@Test
+	public void minEdgeCase(){
+		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
+		Entry<Integer, String> entry = heap.insert(12, "ABC");
+		Entry<Integer, String> entry2 = heap.insert(12, "ABC");
+		Entry<Integer, String> entry3 = heap.insert(22, "ABC");
+
+		assertTrue(heap.min() == entry);
+		assertTrue(heap.min().getKey() == 12);
+	}
+
+	/**
 	 * Test that an Invalid Key Exception is properly raised in an invalid insert call
 	 */
 	@Test(expected = InvalidKeyException.class)
@@ -200,6 +214,24 @@ public class MyHeapTest {
 		assertTrue(entry.getKey() == 1);
 		assertTrue(entry.getValue() == "ABC");
 		assertTrue(entry4.getKey() == 4);
+		assertTrue(entry4.getValue() == "JKL");
+	}
+
+	/**
+	 * Tests that entries are properly distributed when inserted in the edge case where all entries have the same key
+	 */
+	@Test
+	public void insertEdgeCase(){
+		MyHeap<Integer, String> heap = new MyHeap<Integer, String>(new IntegerComparator());
+
+		Entry<Integer, String> entry = heap.insert(50, "ABC");
+		Entry<Integer, String> entry2 = heap.insert(50, "DEF");
+		Entry<Integer, String> entry3 = heap.insert(50, "GHI");
+		Entry<Integer, String> entry4 = heap.insert(50, "JKL");
+
+		assertTrue(entry.getKey() == 50);
+		assertTrue(entry.getValue() == "ABC");
+		assertTrue(heap.min() == entry);
 		assertTrue(entry4.getValue() == "JKL");
 	}
 
