@@ -1,17 +1,76 @@
 README heap
 
-Design Implementations:
-    -
+Design Choices:
+    -MyHeapEntry: The only unique design implementation that I made in this class was to add a setPosition and
+    getPosition method pair that would allow me to assign a specific position when inserting entries into the Heap and
+    that would allow to refer back to the position that any entry was in when replacing keys and values
 
-Method that keeps track of where to add and remove nodes:
+    -MyHeap:
+        -I decided to make my downHeap method based around a while loop instead of making it recursive. By doing so,
+        I found it easier to trace my way down the tree when analyzing what an element should do.
+        -I added a helper method called swapElement that allowed me to take any two entries and swap their keys and
+        values, which proved to be instrumental to the success of my upHeap and downHeap methods.
+        -I call both upHeap and downHeap in replaceKey and remove, because I figured that an entry can be removed
+        or modified anywhere on the Heap, and must be able to either move up or down accordingly depending on how
+        it is modified/where it is removed.
+        -Instead of calling the perhaps simpler remove(min) for my removeMin method, I decided to reciprocate the
+        remove method, except this time being specific to the root of the tree, as I wrote the removeMin method first,
+        and used the logic from my implementation of it to ensure that my remove method worked as intended
 
-Method Run-Times:
+
+Method of how I keep track of where to add and remove nodes:
+    -I do this in the MyLinkedHeapTree class, which I use to ensure that the tree is left-aligned. In using the add and
+    remove methods in this class, I keep track of my positionNodeDeque, which creates the parent-child structure that
+    we see in the tree. My add and remove methods take into account whether a parent has no children, a left child,
+    or two children, and adds/removes from the deque accordingly.
+
+MyLinkedHeapTree Method Run-Times:
+    -add & remove : O(1): Since the add and remove methods consist of simple deque operations, such as removing, adding,
+    and returning positions and their elements, with no iterative functionality that's dependent on the amount of
+    positions in the deque, these method both run in worst case O(1) time.
+    -returnLast : O(1): Since this method consists of just one return statement that returns that last position in the
+    deque, once again not dependent on the overall number of positions in the deque, this method also runs in worst
+    case O(1) time.
 
 Known Bugs:
     - None!
 
 Handin:
-    - This is not my final handin
+    - This is my final handin
 
-Test Case Explanations:
-    -
+My Test Case Explanations:
+    -MyLinkedHeapTreeTests:
+        -testSize(): Checks that when adding elements to the tree, size is properly calculated
+        -sizeAfterRemove(): Checks the removed entry from a tree, and checks the size after having removed an entry
+        -testGetters(): Tests that the getKey and getValue methods work as intended
+        -testSetters(): Tests that the setKey and setValue methods work as intended
+        -positionTest(): Checks that the relationship between a position and an element in a tree holds properly
+
+    -MyHeapTests:
+        -sizeTest(): Tests for the sizing of the heap when entries are added and removed
+        -isEmptyTest(): Tests that the heap is properly recognized as empty/not empty
+        -minExceptionTest(): Tests that an Empty Priority Queue exception is properly raised in an invalid min call
+        -minStandardTest(): Tests that the minimum of the heap is properly recognized
+        -minEdgeCase(): Tests for the edge case that all the keys are the same
+        -insertExceptionTest(): Test that an Invalid Key Exception is properly raised in an invalid insert call
+        -insertStandardTest(): Tests that the insert function works as intended
+        -insertEdgeCase(): Tests that entries are properly distributed when inserted in the edge case where
+            all entries have the same key
+        -removeMinExceptionTest(): Tests that an Empty Priority Queue Execption is raised when the heap is
+            empty on a removeMin call
+        -removeMinStandardTest(): Tests that the removeMin methods works are intended
+        -removeExceptionTest(): Tests that an Invalid Entry Exception is raised when trying to removed
+            from an entry not in the tree
+        -removeStandardTest(): Tests that the tree holds when removing entries, along with testing swapping and heaping
+            up/down
+        -replaceKeyInvalidEntryTest(): Tests that an Invalid Entry Exception is properly raised in an invalid
+            replace key call
+        -replaceKeyInvalidKeyTest(): Tests that an Invalid Key Exception is properly raised in an invalid
+            replace key call
+        -replaceKeyStandardTest(): Tests that the tree holds its properties when replacing keys
+            (also tests up/downheaping)
+        -replaceValueExceptionTest(): Tests that an Invalid Entry Exception is properly raised in an invalid
+            replace value call
+        -replaceValueStandardTest(): Tests that replacing the value of entries works properly
+            and doesn't affect tree properties
+

@@ -52,11 +52,11 @@ public class MyLinkedHeapTree<E> extends LinkedBinaryTree<E>
 			return _positionNodeDeque.getLast();
 		}
 		Position<E> parent = _positionNodeDeque.getFirst();
-		if(hasLeft(_positionNodeDeque.getFirst()) == false){
+		if(hasLeft(parent) == false){
 			_positionNodeDeque.addLast(this.insertLeft(parent, element));
 
 		}
-		else if(hasLeft(_positionNodeDeque.getFirst()) == true){
+		else if(hasLeft(parent) == true){
 			_positionNodeDeque.addLast(this.insertRight(parent,element));
 			_positionNodeDeque.removeFirst();
 		}

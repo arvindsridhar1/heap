@@ -243,6 +243,7 @@ public class MyHeap<K,V> implements HeapWrapper<K,V>, AdaptablePriorityQueue<K,V
 	 */
 
 	/**
+	 * @param pos which is the position whose contents are checked to be upHeaped
 	 * Handles the recognition and calls the upward swapping of entry details when a key is smaller than its parents
 	 */
 	public void upHeap(Position<MyHeapEntry<K,V>> pos){
@@ -255,6 +256,7 @@ public class MyHeap<K,V> implements HeapWrapper<K,V>, AdaptablePriorityQueue<K,V
 	}
 
 	/**
+	 * @param pos which is the position whose contents are checked to be downHeaped
 	 * Handles the recognition and calls the downward swapping of entry details when a key is larger than its children
 	 */
 	public void downHeap(Position<MyHeapEntry<K,V>> pos){
@@ -277,6 +279,8 @@ public class MyHeap<K,V> implements HeapWrapper<K,V>, AdaptablePriorityQueue<K,V
 	}
 
 	/**
+	 * @param elementOne which is the first element whose contents are swapped
+	 * @param elementTwo which is the second element whose contents are swapped
 	 * Handles the actual mechanics of swapping entry details by switching keys and values of the entries
 	 */
 	public void swapElement(MyHeapEntry<K,V> elementOne, MyHeapEntry<K,V> elementTwo){
@@ -287,7 +291,6 @@ public class MyHeap<K,V> implements HeapWrapper<K,V>, AdaptablePriorityQueue<K,V
 		elementOne.setValue(elementTwo.getValue());
 		elementTwo.setKey(oneKey);
 		elementTwo.setValue(oneValue);
-
 	}
 }
 
